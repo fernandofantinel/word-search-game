@@ -25,7 +25,7 @@ body {
   background-color: #333;
 }
 
-.cell {
+#board > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,3 +36,15 @@ body {
   height: 40px;
   background-color: rgb(239, 231, 231);
 }
+
+/* .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(239, 231, 231);
+} */

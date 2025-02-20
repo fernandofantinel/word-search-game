@@ -41,29 +41,33 @@ const letters = [
 const board = document.getElementById("board");
 const words = document.getElementById("words");
 
-const boardStructure = [boardSize * boardSize];
+const boardStructure = Array(boardSize * boardSize).fill("");
 
 for (let index = 0; index < boardSize * boardSize; index += 1) {
   const cell = document.createElement("div");
-  cell.classList.add("cell");
+  // cell.classList.add(`.cell${index}`);
   board.appendChild(cell);
 }
 
 const renderBoard = () => {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach((cell) => (cell.className = "cell"));
+  const cells = document.querySelectorAll("#board > div");
+  // console.log(cells);
+  // cells.forEach((cell) => (cell.className = "cell"));
 
-  placeWordsToSearch();
-
-  cells.forEach((cell) => {
+  cells.forEach((cell, index) => {
     const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+    cell.textContent = boardStructure[index];
+  });
+};
 
-    if (cell.textContent === "") {
-      cell.textContent = randomLetter;
+const createBoardStructure = () => {
+  boardStructure.forEach((item, index) => {
+    if (item === "") {
+      const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+
+      boardStructure[index] = randomLetter;
     }
   });
-
-  fillWordsToSearch();
 };
 
 const createWordsToSearch = () => {
@@ -108,7 +112,7 @@ const createWordsToSearch = () => {
   ];
 
   const wordsToSearch = [];
-  while (wordsToSearch.length < 10) {
+  while (wordsToSearch.length < 2) {
     const randomWord = words[Math.floor(Math.random() * words.length)];
     if (!wordsToSearch.includes(randomWord)) {
       wordsToSearch.push(randomWord);
@@ -128,7 +132,7 @@ const fillWordsToSearch = () => {
   });
 };
 
-const placeWordsToSearch = () => {
+const placeWordsInBoard = () => {
   const wordsToSearch = createWordsToSearch();
 
   const directions = [
@@ -142,19 +146,20 @@ const placeWordsToSearch = () => {
     "diagonal-reverse-down",
   ];
 
-  wordsToSearch.forEach((word) => {
-    const direction = directions[Math.floor(Math.random() * directions.length)];
-    console.log(direction);
+  for (let index = 0; index < boardStructure.length; index++) {
+    let wordSplitted = "";
+    wordsToSearch.forEach((word) => {
+      // const direction = directions[Math.floor(Math.random() * directions.length)];
+      // console.log(direction);
 
-    const wordSplitted = word.split("");
+      wordSplitted = word.split("");
 
-    wordSplitted.forEach((letter) => {
-      console.log(letter);
-      const randomCell = document.querySelector(".cell");
-      randomCell.textContent = letter;
-      randomCell.classList.add(letter);
+      wordSplitted.forEach((letter) => {
+        boardStructure[index] = letter;
+        index++;
+      });
     });
-  });
+  }
 };
 
 const gameLoop = (state) => {
@@ -173,5 +178,11 @@ const gameLoop = (state) => {
 
   renderBoard(newState);
 };
+
+createBoardStructure();
+
+placeWordsInBoard();
+
+fillWordsToSearch();
 
 renderBoard();
