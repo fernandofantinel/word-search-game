@@ -1,0 +1,38 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #282c34;
+}
+
+#words {
+  padding-top: 40px;
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgb(239, 231, 231);
+  text-transform: uppercase;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  background-color: #333;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(239, 231, 231);
+}
